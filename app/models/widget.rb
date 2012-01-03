@@ -1,10 +1,10 @@
 class Widget < ActiveRecord::Base
-  named_scope :equals_test, where(:test_val => "Test")
-  validate_on_create :create_validation
-  validate_on_update :update_validation
+  scope :equals_test, where(:test_val => "Test")
+  validate :create_validation, :on => :create
+  validate :update_validation, :on => :update
 
   def save_without_verification
-    save(false)
+    save(:validate => false)
   end
 
   def create_validation
